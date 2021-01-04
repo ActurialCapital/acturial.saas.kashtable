@@ -33,7 +33,8 @@ class table:
         return lambda x: ["{style}: {col}".format(style=style, col=x[col]) for _ in x]
     
     def _value_format(self, applied_to):
-        return dict(zip(applied_to, [lambda x: '{0:,.0f}'.format(x)] * len(applied_to)))
+        return dict(zip(applied_to, [lambda x: '{0:,.0f}'.format(x).replace(',', ' '
+            ) if x >=0 else '({0:,.0f})'.format(abs(x)).replace(',', ' ')] * len(applied_to)))
 
     def financials(self):
         return (self.df.style
