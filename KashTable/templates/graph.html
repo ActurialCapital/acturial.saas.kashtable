@@ -14,7 +14,118 @@
 
 {% block header %}{% include "partials/_header.html" %}{% endblock header %} 
 
-{% block breadcrumbs %} {{ breadcrumbs.fit(title="Graph") }} {% endblock breadcrumbs %} 
+{% block breadcrumbs %} 
+    
+    <div class="subheader py-6 py-lg-8 subheader-transparent" id="kt_subheader" kt-hidden-height="95" style="">
+      <div class="container d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+        <!--begin::Page Heading-->
+        <div class="d-flex align-items-baseline flex-wrap mr-5">
+            <!--begin::Page Title-->
+            <h5 class="text-dark font-weight-bold my-1 mr-5">{{ title }}</h5>
+
+            <!--end::Page Title-->
+            <!--begin::Breadcrumb-->
+            <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
+                <li class="breadcrumb-item">
+                    <a href="{{ url_for('main.home') }}" class="text-muted">Home</a>
+                </li>                       
+                                  
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}                        
+                            <li class="breadcrumb-item">
+                                <span class="label label-light-{{ category }} label-inline mr-2">
+                                    {{ message }}
+                                </span>
+                            </li>     
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}                                                
+            </ul>
+            <!--end::Breadcrumb-->
+        </div>
+        <!--end::Page Heading-->
+        <!--begin::Toolbar-->
+        <div class="d-flex align-items-center flex-wrap">
+            <!--begin::Form-->    
+            <form class="ml-5" method="POST" action="" enctype="multipart/form-data">
+                {{ form.csrf_token }}
+                <div class="input-group" >                    
+                    {{ form.opts(class="form-control px-5 ml-2", autocomplete="off") }}
+                    <div class="input-group-append">
+                        <span class="input-group-text">
+                            <i class="la la-calendar"></i>
+                        </span>
+                    </div>
+                    
+                    <a href="#" class="btn font-weight-bold btn-light-warning px-5 ml-2" data-toggle="modal" data-target="#kt_datetimepicker_modal">Filter</a>
+                    
+                    {{ form.submit1(class="btn btn-danger btn-hover-text-white btn-fixed-height font-weight-bolder font-size-sm px-5 ml-2") }}
+                </div>  
+            </form>
+            <!--end::Form-->   
+        </div>
+        <!--end::Toolbar-->
+      </div>
+    </div>
+
+    <div class="modal fade" id="kt_datetimepicker_modal" tabindex="-1" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Filter Chart</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <i aria-hidden="true" class="ki ki-close"></i>
+            </button>
+          </div>
+          <form class="form" method="POST" action="" enctype="multipart/form-data">
+            {{ form.csrf_token }}
+            <div class="modal-body">
+                        
+              {% for label, inputs in {
+                  "First Series":  (form.series_1(class="form-control", autocomplete="off"), form.type_1(class="form-control", autocomplete="off")),
+                  "Second Series": (form.series_2(class="form-control", autocomplete="off"), form.type_2(class="form-control", autocomplete="off")),
+                  "Third Series":  (form.series_3(class="form-control", autocomplete="off"), form.type_3(class="form-control", autocomplete="off")),
+                  }.items() %}
+                  
+                  <div class="form-group row">
+                    <label class="col-form-label text-left col-lg-3 col-sm-12">{{ label }}</label>
+                    <div class="row">
+                        <div class="col">            
+                          <div class="input-group">
+                            <div class="input-group-append">
+                              <span class="input-group-text">
+                                <i class="flaticon2-add-1"></i>
+                              </span>
+                            </div>                      
+                            {{ inputs[0] }}
+                          </div>
+                        </div>
+                        <div class="col">            
+                          <div class="input-group">
+                            <div class="input-group-append">
+                              <span class="input-group-text">
+                                <i class="flaticon2-edit"></i>
+                              </span>
+                            </div>                      
+                            {{ inputs[1] }}
+                          </div>
+                        </div>
+                    </div>                    
+                  </div>
+                  
+              {% endfor %}
+              
+            </div>
+            <div class="modal-footer">
+              <button type="reset" class="btn btn-primary mr-2" data-dismiss="modal">Close</button>
+              {{ form.submit2(class="btn btn-secondary") }}
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+{% endblock breadcrumbs %} 
 
 {% block content %}
     
@@ -42,7 +153,7 @@
                 
         <div class="card-body">
 
-            <div id="{{ chart_id }}"></div>
+            <div id="{{ chart_id }}" style="width: 100%; height: 100%;"></div>
             
         </div>
             
@@ -62,7 +173,6 @@
 {% block custom_js %}
     
     <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/series-label.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
@@ -70,142 +180,129 @@
     <script src="{{ url_for('static', filename='assets/js/pages/my-script.js') }}"></script>
     
     <script>
-Highcharts.chart('{{ chart_id }}', {
+
+Highcharts.setOptions({
     chart: {
-        zoomType: 'xy'
-    },
-    title: '',
-    exporting: {enabled: false},
-    credits: {enabled: false},
-    xAxis: [{
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-        crosshair: true
-    }],
-    yAxis: [{ // Primary yAxis
-        labels: {
-            format: '{value}°C',
-            style: {
-                color: Highcharts.getOptions().colors[2]
-            }
-        },
-        title: {
-            text: 'Temperature',
-            style: {
-                color: Highcharts.getOptions().colors[2]
-            }
-        },
-        opposite: true
-
-    }, { // Secondary yAxis
-        gridLineWidth: 0,
-        title: {
-            text: 'Rainfall',
-            style: {
-                color: Highcharts.getOptions().colors[0]
-            }
-        },
-        labels: {
-            format: '{value} mm',
-            style: {
-                color: Highcharts.getOptions().colors[0]
-            }
+        style: {
+            fontFamily: 'Arial'
         }
-
-    }, { // Tertiary yAxis
-        gridLineWidth: 0,
-        title: {
-            text: 'Sea-Level Pressure',
-            style: {
-                color: Highcharts.getOptions().colors[1]
-            }
-        },
-        labels: {
-            format: '{value} mb',
-            style: {
-                color: Highcharts.getOptions().colors[1]
-            }
-        },
-        opposite: true
-    }],
-    tooltip: {
-        shared: true
-    },
-    legend: {
-        layout: 'vertical',
-        align: 'left',
-        x: 80,
-        verticalAlign: 'top',
-        y: 55,
-        floating: true,
-        backgroundColor:
-            Highcharts.defaultOptions.legend.backgroundColor || // theme
-            'rgba(255,255,255,0.25)'
-    },
-    series: [{
-        name: 'Rainfall',
-        type: 'column',
-        yAxis: 1,
-        data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
-        tooltip: {
-            valueSuffix: ' mm'
-        }
-
-    }, {
-        name: 'Sea-Level Pressure',
-        type: 'spline',
-        yAxis: 2,
-        data: [1016, 1016, 1015.9, 1015.5, 1012.3, 1009.5, 1009.6, 1010.2, 1013.1, 1016.9, 1018.2, 1016.7],
-        marker: {
-            enabled: false
-        },
-        dashStyle: 'shortdot',
-        tooltip: {
-            valueSuffix: ' mb'
-        }
-
-    }, {
-        name: 'Temperature',
-        type: 'spline',
-        data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6],
-        tooltip: {
-            valueSuffix: ' °C'
-        }
-    }],
-    responsive: {
-        rules: [{
-            condition: {
-                maxWidth: 500
-            },
-            chartOptions: {
-                legend: {
-                    floating: false,
-                    layout: 'horizontal',
-                    align: 'center',
-                    verticalAlign: 'bottom',
-                    x: 0,
-                    y: 0
-                },
-                yAxis: [{
-                    labels: {
-                        align: 'right',
-                        x: 0,
-                        y: -6
-                    },
-                    showLastLabel: false
-                }, {
-                    labels: {
-                        align: 'left',
-                        x: 0,
-                        y: -6
-                    },
-                    showLastLabel: false
-                }, {
-                    visible: false
-                }]
-            }
-        }]
     }
+});
+Highcharts.chart('chart1', {
+  chart: {zoomType: 'x'},
+  title: '',
+  exporting: {enabled: false},
+  credits: {enabled: false},
+  plotOptions: {
+    series: {
+      dataLabels: {
+        enabled: false
+      }
+    }
+  },
+  xAxis: [
+  	{
+    categories: [{% for col in df.columns %} "{{ col }}", {% endfor %}],
+    crosshair: true,
+    tickInterval: 3
+		}
+  ],
+  yAxis: [
+    {% if not form.series_1.data == "--" %}
+      	{ // Primary yAxis
+        labels: {style: {color: 'blue'}},
+        title: {text: "{{ form.series_1.data }}", style: {color: 'blue'}},
+		}, 
+    {% endif %}
+    {% if not form.series_2.data == "--" %}    
+        { // Tertiary yAxis
+        labels: {style: {color: 'purple'}},
+        title: {text: "{{ form.series_2.data }}", style: {color: 'purple'}},
+        opposite: true
+    	}, 
+    {% endif %}
+    {% if not form.series_3.data == "--" %}
+        { // Secondary yAxis
+        labels: {style: {color: 'black'}},
+        title: {text: "{{ form.series_3.data }}", style: {color: 'black'}},
+        opposite: true
+    	}, 
+    {% endif %}
+    
+  ],
+  tooltip: {shared: true},
+  legend: {layout: 'horizontal', align: 'left'},
+  series: [
+  	{% if not form.series_1.data == "--" %}  	
+        {
+        name: "{{ form.series_1.data }}",
+        type: "{{ form.type_1.data }}",
+        yAxis: 0,
+        color: 'blue',
+        marker: {enabled: false},
+        opacity: 0.3,
+        // dashStyle: 'shortdot',
+        data: [{% set col = form.series_1.data %}{% for key,value in df.iteritems() %}  {{ value[col] }}, {% endfor %}],
+        },
+  	{% endif %}   
+    {% if not form.series_2.data == "--" %}    
+        {
+        name: "{{ form.series_2.data }}",
+        type: "{{ form.type_2.data }}",
+        yAxis:  1,
+        color: 'purple',
+        marker: {enabled: false},
+        opacity: 0.3,
+        // dashStyle: 'shortdot',
+        data: [{% set col = form.series_2.data %}{% for key,value in df.iteritems() %}  {{ value[col] }}, {% endfor %}],  
+      	}, 
+  	{% endif %}  	
+    {% if not form.series_3.data == "--"%}
+      	{
+        name: "{{ form.series_3.data }}",
+        type: "{{ form.type_3.data }}",
+        yAxis: {% if form.series_2.data == "--" %} 1 {% else %} 2 {% endif %},
+        color: 'black',
+        marker: {enabled: false},
+        opacity: 0.3,
+        data: [{% set col = form.series_3.data %}{% for key,value in df.iteritems() %}  {{ value[col] }}, {% endfor %}],
+      	}, 
+    {% endif %}
+  ],
+  responsive: {
+    rules: [{
+      condition: {
+        maxWidth: 500
+      },
+      chartOptions: {
+        legend: {
+          floating: false,
+          layout: 'horizontal',
+          align: 'center',
+          verticalAlign: 'bottom',
+          x: 0,
+          y: 0
+        },
+        yAxis: [{
+          labels: {
+            align: 'right',
+            x: 0,
+            y: -6
+          },
+          showLastLabel: false
+        }, {
+          labels: {
+            align: 'left',
+            x: 0,
+            y: -6
+          },
+          showLastLabel: false
+        }, {
+          visible: false
+        }]
+      }
+    }]
+  }
 });
   
     </script>     

@@ -11,7 +11,7 @@ class table:
     
     def __init__(self, df, uuid='table1'):
         self.uuid = uuid
-        self.desc = 'Description'
+        self.labels = 'Description'
         self.formatter = ['table_name', 
                           'font_weight', 
                           'font_color', 
@@ -20,7 +20,7 @@ class table:
                           'font_size', 
                           'text_align', 
                           'sort_by']
-        self.dt = list(df.loc[:, ~df.columns.isin(self.formatter)].drop(self.desc, axis=1).columns)
+        self.dt = list(df.loc[:, ~df.columns.isin(self.formatter)].drop(self.labels, axis=1).columns)
         try:
             self.dt_formatted = [d.strftime("%b %Y") for d in self.dt]
         except:

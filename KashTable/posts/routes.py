@@ -1,5 +1,6 @@
 import os
 import pandas as pd
+import numpy as np
 from flask_login import current_user, login_required
 from flask import (
     render_template, 
@@ -16,7 +17,8 @@ from KashTable.models import File
 from KashTable.posts import utils
 from KashTable.posts.forms import (
     UploadForm, 
-    TableForm
+    TableForm,
+    GraphForm,
     )
 
 
@@ -69,10 +71,6 @@ def table(table_name):
         .render() located in .users.render.table class. For more information 
         visit pandas.pydata.org.
         """
-#        if isinstance(doc, str):
-#            # in dev, path can be stored instead of blob. In this case
-#            # pandas.read_excel([PATH]) is used, where PATH = files/archive
-#            doc = pd.read_excel(os.path.join(Config.FILE_PATH + '/archive', doc))
         doc = pd.json_normalize(doc)
         df = doc.loc[doc["table_name"] == table_name] # filter to access spec table
         return utils.table(df, uuid='table1').financials()  
@@ -85,20 +83,18 @@ def table(table_name):
   
         try:
             if request.method == 'POST':
-                id = form.opts.data
-                ufile = user.filter_by(id=id).first()
+                ufile = user.filter_by(id=form.opts.data).first()
                 tb = refresh(ufile.doc)
                 session.pop('user', None)
-                session['user'] = id
+                session['user'] = form.opts.data
                 flash(f"Updated as at {ufile.date.strftime('%B %Y')}.", 'info')
                 return render_template('table.html', title=table_name, tb=tb, form=form) 
             elif session['user']==None: # before first request
                 tb = refresh(file.doc)
                 flash(f"Updated as at {file.date.strftime('%B %Y')}.", 'info')
             else:
-                id = session['user']
-                ufile = user.filter_by(id=id).first()
-                form.opts.data = id
+                ufile = user.filter_by(id=session['user']).first()
+                form.opts.data = session['user']
                 tb = refresh(ufile.doc)
                 flash(f"Updated as at {ufile.date.strftime('%B %Y')}.", 'info')
             return render_template(
@@ -122,8 +118,72 @@ def table(table_name):
         return redirect(url_for('posts.upload'))  
 
 
+import dateutil
 @posts.route('/graph', methods=['GET', 'POST'])
 @login_required
 def graph(): 
-    return render_template('graph.html', title='Dashboard', chart_id='chart1')
+    
+    def reshape(doc):
+        doc = pd.json_normalize(doc)   
+        df = doc.loc[doc["table_name"].isin(['Bilan', 'Compte de Resultat Analytique Cumulé'])]
+        labels = 'Description'
+        formatter = ['table_name', 
+                     'font_weight', 
+                     'font_color', 
+                     'background_color',	
+                     'font_family', 
+                     'font_size', 
+                     'text_align', 
+                     'sort_by']        
+        dt = list(df.loc[:, ~df.columns.isin(formatter)].drop(labels, axis=1).columns)
+        dt_formatted = [str(dateutil.parser.parse(d).strftime("%b %Y")) for d in dt]
+        df = df.rename(columns=dict(zip(dt, dt_formatted)))
+        df = df.drop(formatter, axis=1)
+        df = df.set_index(labels)
+        df = df.dropna(axis=1, how='all')
+        df = df.replace(np.nan, 'null')
+        df = round(df, 0)
+        return df
+    
+    form = GraphForm()
+    user = File.query.filter_by(user_id=current_user.id)
+
+    file = user.order_by(File.date.desc()).first()
+    doc = file.doc
+    df = reshape(doc)
+
+    form.opts.choices = [(item.id, item.date.strftime('%B %Y')) for item in user.all()]
+    
+    choice_labels = [(label, label) for _, label in enumerate(df.index)]
+    
+    choice_labels.append(("--", "--"))
+    
+    form.series_1.choices = choice_labels
+    form.series_2.choices = choice_labels
+    form.series_3.choices = choice_labels
+    
+    if request.method == 'POST':
+#        ufile = user.filter_by(id=form.opts.data).first()
+#        df = reshape(ufile.doc)      
+#        flash(f"Updated as at {ufile.date.strftime('%B %Y')}.", 'info')
+        return render_template(
+            'graph.html', 
+            title='Dashboard',
+            chart_id='chart1', 
+            df=df, 
+            form=form
+            ) 
+    
+    # default
+    form.series_1.data = "Chiffre d'affaires"
+    form.series_2.data = "--"
+    form.series_3.data = "--"
+    
+    return render_template(
+        'graph.html', 
+        title='Dashboard', 
+        chart_id='chart1',
+        df=df,
+        form=form,
+        )
 
