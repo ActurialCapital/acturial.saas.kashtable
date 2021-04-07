@@ -32,6 +32,13 @@ Notre solution vous garantit un reporting financier complet (compte de résultat
 
 #### More info on https://kashtable.kavalry.fr/
 
+#### Run locally
+
+```
+from KashTable import create_app
+app = create_app()
+app.run(debug=True) 
+```
 ### Built With
 
 #### Python 
