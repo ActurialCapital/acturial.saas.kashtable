@@ -2,7 +2,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/ActurialCapital/quantico">
-    <img src="KashTable/static/assets/media/client-logos/logo_kashtable.png" width="50%" height="50%">
+    <img src="KashTable/static/assets/media/client-logos/logo_kashtable.png" width="20%" height="20%">
   </a>
 
   <h2 align="center">KashTable</h2>
