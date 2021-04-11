@@ -5,6 +5,10 @@
   <img src="static/kashtable_dev_logo.png" width="50%" height="50%">
 </p>
 
+<p align="center">
+  <img src="KashTable/static/assets/media/client-logos/logo_kashtable.png" width="10%" height="10%">
+</p>
+
 <h2 align="center">KashTable: Python Flask App</h2>
 
 # Table of Contents
@@ -49,10 +53,6 @@
 * [License](#license)
 
 # About the Project
-
-<p align="left">
-  <img src="KashTable/static/assets/media/client-logos/logo_kashtable.png" width="10%" height="10%">
-</p>
 
 ### Le constat
 
