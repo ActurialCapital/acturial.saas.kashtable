@@ -1,12 +1,12 @@
 <!-- PROJECT LOGO -->
 <br />
-<p align="center">
-  <a href="https://github.com/ActurialCapital/quantico">
-    <img src="KashTable/static/assets/media/client-logos/logo_kashtable.png" width="20%" height="20%">
-  </a>
 
-  <h2 align="center">KashTable</h2>
- 
+<p align="center">
+  <img src="static/kashtable_dev_logo.png" width="50%" height="50%">
+</p>
+
+<h2 align="center">KashTable</h2>
+
 ## Table of Contents
 <br>
 
@@ -19,6 +19,11 @@
 ## About the Project
 
 ### Introduction
+
+<p align="center">
+  <img src="KashTable/static/assets/media/client-logos/logo_kashtable.png" width="20%" height="20%">
+</p>
+
 
 #### Le constat
 
@@ -41,6 +46,16 @@ from KashTable import create_app
 app = create_app()
 app.run(debug=True) 
 ```
+
+### Database model
+
+<p align="center">
+  <a href="https://github.com/ActurialCapital/quantico">
+    <img src="static/db_model.png" width="50%" height="50%">
+  </a>
+</p>
+
+
 ### Built With
 
 #### Python 
