@@ -5,7 +5,7 @@
   <img src="static/kashtable_dev_logo.png" width="50%" height="50%">
 </p>
 
-<h2 align="left">KashTable: Python Flask App</h2>
+<h2 align="center">KashTable: Python Flask App</h2>
 
 # Table of Contents
 <br>
@@ -276,9 +276,21 @@ app.run(debug=True)
 
 ### List
 
+<p align="center">
+  <img src="static/admin_file_list.png" width="50%" height="50%">
+</p>
+
 ### Create
 
+<p align="center">
+  <img src="static/admin_file_create.png" width="50%" height="50%">
+</p>
+
 ### Details
+
+<p align="center">
+  <img src="static/admin_file_details.png" width="50%" height="50%">
+</p>
 
 # Author
 
