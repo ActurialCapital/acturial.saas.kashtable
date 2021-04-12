@@ -50,14 +50,23 @@
 
 # About the Project
 
-### Le constat
+### Environment
 
-Dans le contexte économique actuel, les startup, PME et TPE sont plus exposées que jamais à des problèmes de liquidités. La maîtrise du BFR et de la rentabilité sont des facteurs clés de succès. 
+- Solve liquidity issues triggered by uncertain econmic envirronment
+- Maintain EBITDA as well as key performance drivers
 
-### Notre solution 
+### Solution
 
-Sur la base d’un premier diagnostic réalisé par nos experts, nous pourrons vous proposer les outils de reporting financiers adaptés qui vous permettront un pilotage plus efficient de votre business. Nos experts s’appuient sur des années d’expérience dans l’univers de l’analyse financière au cours desquelles ils ont été exposés à de nombreuses problématiques autour des enjeux que sont la rentabilité, le BFR et le cash. Notre solution vous garantit un reporting financier complet (compte de résultat, BFR, cash-flow) en ligne, revu et fiabilisé  par nos experts. Vous serez désormais en mesure d’avoir de la visibilité sur votre performance historique comme sur votre prévisionnel de trésorerie, afin de mieux l’anticiper. Vous ne vous souciez de rien, nous nous connectons directement à votre logiciel de comptabilité ou de facturation afin de récupérer l’intégralité de vos données financières. Votre unique mission, consulter chaque mois votre Kashtable sur notre plateforme SAAS dans votre espace dédié et sécurisé.
-#### More info on https://kashtable.kavalry.fr/
+- Diagnostics
+- Financial reporting
+- Business drivers
+- Financial analysis
+- Visibility
+- Forecast
+- Integrated SAAS 
+- Secure
+
+More info on https://kashtable.kavalry.fr/
 
 # General
 
