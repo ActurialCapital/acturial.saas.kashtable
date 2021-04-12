@@ -5,8 +5,7 @@
   <img src="static/kashtable_dev_logo.png" width="50%" height="50%">
 </p>
 
-<h2 align="center">KashTable</h2>
-<h3 align="center">A Python Flask App</h3>
+<h2 align="center">KashTable Flask App</h2>
 
 # Table of Contents
 <br>
