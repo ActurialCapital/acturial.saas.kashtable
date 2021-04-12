@@ -285,7 +285,7 @@ app.run(debug=True)
 ### Details
 
 <p align="center">
-  <img src="static/admin_file_details.png" width="50%" height="50%">
+  <img src="static/admin_file_details.png" width="80%" height="80%">
 </p>
 
 # Author
