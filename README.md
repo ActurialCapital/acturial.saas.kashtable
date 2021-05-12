@@ -7,10 +7,12 @@
 
 <h2 align="center">KashTable</h2>
 
-# Table of Contents
+# 💡 Table of Contents
 <br>
 
 * [About the Project](#about-the-project)
+*   [Business](#business)
+*   [Solution](#solution)
 * [General](#general)
   * [Run locally](#run-locally)
   * [Built With](#built-with)
@@ -45,17 +47,16 @@
     * [List](#list)
     * [Create](#create)
     * [Details](#details)
-* [Author](#author)
 * [License](#license)
 
-# About the Project
+# ⚡ About the Project
 
-### Environment
+### 💼 Business
 
 - Solve liquidity issues triggered by uncertain econmic envirronment
 - Maintain EBITDA as well as key performance drivers
 
-### Solution
+### 👉 Solution
 
 - Diagnostics
 - Financial reporting
@@ -68,9 +69,9 @@
 
 More info on https://kashtable.kavalry.fr/
 
-# General
+# 💎 General
 
-## Run locally
+## 🏀 Run locally
 
 ```
 from KashTable import create_app
@@ -78,9 +79,9 @@ app = create_app()
 app.run(debug=True) 
 ```
 
-## Built With
+## 💬 Built With
 
-### Python 
+### :snake: Python 
 
 - flask
 - flask_sqlalchemy
@@ -104,36 +105,36 @@ app.run(debug=True)
 - PIL
 - dateutil
 
-### Other dependencies
+### 📦 Other dependencies
 
 - Bootstrap
 - HighCharts
 - DataTables
 - KeenThemes JS bundles
 
-## Model
+## 🎨 Model
 
 <p align="center">
   <img src="static/db_model.png" width="50%" height="50%">
 </p>
 
-# Excel Mandatory Format
+# 😇 Excel Mandatory Format
 
-## Column Name
+## 👀 Column Name
 
 <p align="center">
   <img src="static/excel_columns.png" width="80%" height="80%">
 </p>
 
-## Formatter
+## ✔️ Formatter
 
 <p align="center">
   <img src="static/excel_formatter.png" width="50%" height="50%">
 </p>
 
-# Client Side
+# 🐶 Client Side
 
-## Access
+## 🧬 Access
 
 ### Register
 
@@ -141,166 +142,118 @@ app.run(debug=True)
   <img src="static/register.png" width="80%" height="80%">
 </p>
 
-### Login
+### 🏄‍♂️ Login
 
 <p align="center">
   <img src="static/login.png" width="50%" height="50%">
 </p>
 
-<p align="center">
-  <img src="static/login_field_required.png" width="50%" height="50%">
-</p>
-
-<p align="center">
-  <img src="static/login_error.png" width="50%" height="50%">
-</p>
-
-### Reset Password
+### 🔫 Reset Password
 
 <p align="center">
   <img src="static/reset_password.png" width="50%" height="50%">
 </p>
 
-<p align="center">
-  <img src="static/reset_password_field_required.png" width="50%" height="50%">
-</p>
+### 💣 Aside
 
-### Aside
-
-#### Not Authenticated
+#### 🛑 Not Authenticated
 
 <p align="center">
   <img src="static/aside_not_oauth.png" width="10%" height="10%">
 </p>
 
-#### Authenticated
+#### ✅ Authenticated
 
 <p align="center">
   <img src="static/aside_oauth.png" width="80%" height="80%">
 </p>
 
-## Profile
+## 🥳 Profile
 
 <p align="center">
   <img src="static/profile.png" width="80%" height="80%">
 </p>
 
-<p align="center">
-  <img src="static/profile_field_required.png" width="80%" height="80%">
-</p>
-
-<p align="center">
-  <img src="static/profile_picture.png" width="80%" height="80%">
-</p>
-
-## Upload
+## ⬆️ Upload
 
 <p align="center">
   <img src="static/upload_forms.png" width="80%" height="80%">
 </p>
 
-<p align="center">
-  <img src="static/upload_forms_validation.png" width="80%" height="80%">
-</p>
+## 🔥 Posts
 
-## Posts
-
-### Home
+### 🏠 Home
 
 <p align="center">
   <img src="static/home.png" width="80%" height="80%">
 </p>
 
-### Table
+### ⛳ Table
 
 <p align="center">
   <img src="static/table.png" width="50%" height="50%">
 </p>
 
-<p align="center">
-  <img src="static/table_updated.png" width="50%" height="50%">
-</p>
-
-<p align="center">
-  <img src="static/table_no_data.png" width="50%" height="50%">
-</p>
-
-<p align="center">
-  <img src="static/table_no_materials.png" width="80%" height="80%">
-</p>
-
-## Graph
+## 🎰 Graph
 
 <p align="center">
   <img src="static/graph.png" width="50%" height="50%">
 </p>
 
-<p align="center">
-  <img src="static/graph_multicharts.png" width="50%" height="50%">
-</p>
+# 🏛️ CRUD Admin
 
-<p align="center">
-  <img src="static/graph_filters.png" width="50%" height="50%">
-</p>
-
-# CRUD Admin
-
-## Home
+## 🏠 Home
 
 <p align="center">
   <img src="static/admin_home.png" width="50%" height="50%">
 </p>
 
-## User
+## 😀 User
 
-### List
+### 💯 List
 
 <p align="center">
   <img src="static/admin_user_list.png" width="50%" height="50%">
 </p>
 
-### Create
+### ♣️ Create
 
 <p align="center">
   <img src="static/admin_user_create.png" width="50%" height="50%">
 </p>
 
-### Details
+### ➡️ Details
 
 <p align="center">
   <img src="static/admin_user_details.png" width="50%" height="50%">
 </p>
 
-### Edit
+### 🕹️ Edit
 
 <p align="center">
   <img src="static/admin_user_edit.png" width="50%" height="50%">
 </p>
 
-## File
+## 🧳 File
 
-### List
+### 🎙️ List
 
 <p align="center">
   <img src="static/admin_file_list.png" width="50%" height="50%">
 </p>
 
-### Create
+### 🧱 Create
 
 <p align="center">
   <img src="static/admin_file_create.png" width="50%" height="50%">
 </p>
 
-### Details
+### 😎 Details
 
 <p align="center">
   <img src="static/admin_file_details.png" width="80%" height="80%">
 </p>
 
-# Author
-
-**Jean Meilhoc Ricaume** - [LinkedIn](www.linkedin.com/in/j-mr)
-
-# License
+# 📖 License
 
 This project is licensed under the MIT License
