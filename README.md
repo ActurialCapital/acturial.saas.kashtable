@@ -53,7 +53,7 @@
 
 ### 💼 Business
 
-- Solve liquidity issues triggered by uncertain econmic envirronment
+- Solve liquidity issues triggered by uncertain economic environment
 - Maintain EBITDA as well as key performance drivers
 
 ### 👉 Solution
